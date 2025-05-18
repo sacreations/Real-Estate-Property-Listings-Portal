@@ -3,23 +3,24 @@ package models;
 import java.io.Serializable;
 
 /**
- * Class representing a real estate property
+ * This class represents a real estate property with all its details
+ * It stores information about location, price, size, etc.
  */
 public class Property implements Serializable, Comparable<Property> {
-    private String propertyId;
-    private String title;
-    private String description;
-    private double price;
-    private String location;
-    private int bedrooms;
-    private int bathrooms;
-    private double area;
-    private String propertyType;
-    private String ownerId;
-    private String status;
-    private String imageUrl;
+    private String propertyId;      // Unique identifier for the property
+    private String title;           // Property title/name
+    private String description;     // Detailed description
+    private double price;           // Price in dollars
+    private String location;        // Property location/address
+    private int bedrooms;           // Number of bedrooms
+    private int bathrooms;          // Number of bathrooms
+    private double area;            // Area size in square feet/meters
+    private String propertyType;    // Type: apartment, house, land, etc.
+    private String ownerId;         // ID of the user who owns this property
+    private String status;          // Status: for sale, sold, for rent, etc.
+    private String imageUrl;        // URL to the property image
     
-    // Constructor
+    // Constructor - creates a new property with all details
     public Property(String propertyId, String title, String description, double price, 
                    String location, int bedrooms, int bathrooms, double area,
                    String propertyType, String ownerId, String status, String imageUrl) {
@@ -37,7 +38,8 @@ public class Property implements Serializable, Comparable<Property> {
         this.imageUrl = imageUrl;
     }
     
-    // Getters and setters
+    // Getters and setters for all properties
+    // These allow us to access and modify the property details
     public String getPropertyId() {
         return propertyId;
     }
@@ -134,14 +136,18 @@ public class Property implements Serializable, Comparable<Property> {
         this.imageUrl = imageUrl;
     }
     
-    // For file operations
+    /**
+     * Convert property to a string format for file storage
+     */
     public String toFileString() {
         return propertyId + "," + title + "," + description + "," + price + "," + 
                location + "," + bedrooms + "," + bathrooms + "," + area + "," +
                propertyType + "," + ownerId + "," + status + "," + imageUrl;
     }
     
-    // Factory method to create from file string
+    /**
+     * Create a Property object from a string read from file
+     */
     public static Property fromFileString(String fileString) {
         String[] parts = fileString.split(",", 12); // Max 12 parts
         if (parts.length >= 11) {
@@ -174,7 +180,9 @@ public class Property implements Serializable, Comparable<Property> {
         return null;
     }
     
-    // For BST operations
+    /**
+     * Compare properties by price (used for sorting)
+     */
     @Override
     public int compareTo(Property other) {
         return Double.compare(this.price, other.price);

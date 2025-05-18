@@ -7,15 +7,18 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Filter to handle session timeout and redirect to session-timeout page
+ * This filter checks if the user's session has expired
+ * It redirects to the timeout page for protected pages that need a login
  */
 public class SessionTimeoutFilter implements Filter {
 
+    // Initialize filter
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Initialization code if needed
+        // Nothing to initialize
     }
 
+    // Main filter method that runs on each request
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
             throws IOException, ServletException {
@@ -23,35 +26,40 @@ public class SessionTimeoutFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         
-        // Skip filter for public resources
+        // Get the page being requested
         String requestURI = httpRequest.getRequestURI();
-        if (isPublicResource(requestURI, httpRequest.getContextPath())) {
+        String contextPath = httpRequest.getContextPath();
+        
+        // Skip check for public pages (login, register, home page, etc.)
+        if (isPublicPage(requestURI, contextPath)) {
             chain.doFilter(request, response);
             return;
         }
         
-        // Check if session exists and is valid for protected resources
+        // Get the user's session if it exists
         HttpSession session = httpRequest.getSession(false);
         
-        // If no session or session expired and trying to access protected resource
-        if (requiresAuthentication(requestURI, httpRequest.getContextPath()) && 
+        // Check if session exists and is valid
+        if (needsLogin(requestURI, contextPath) && 
             (session == null || session.getAttribute("userId") == null)) {
             
             // Redirect to session timeout page
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/WEB-INF/jsp/session-timeout.jsp");
+            httpResponse.sendRedirect(contextPath + "/WEB-INF/jsp/session-timeout.jsp");
             return;
         }
         
+        // Continue to the requested page
         chain.doFilter(request, response);
     }
 
+    // Clean up when filter is destroyed
     @Override
     public void destroy() {
-        // Cleanup code if needed
+        // Nothing to clean up
     }
     
-    // Check if the resource is public (doesn't require authentication)
-    private boolean isPublicResource(String uri, String contextPath) {
+    // Check if this is a public page that doesn't need login
+    private boolean isPublicPage(String uri, String contextPath) {
         return uri.equals(contextPath + "/") || 
                uri.equals(contextPath + "/index.jsp") ||
                uri.startsWith(contextPath + "/auth") ||
@@ -60,8 +68,8 @@ public class SessionTimeoutFilter implements Filter {
                uri.contains("/images/");
     }
     
-    // Check if the resource requires authentication
-    private boolean requiresAuthentication(String uri, String contextPath) {
+    // Check if this page requires being logged in
+    private boolean needsLogin(String uri, String contextPath) {
         return uri.startsWith(contextPath + "/admin/") || 
                uri.startsWith(contextPath + "/user/") ||
                uri.contains("/properties/add") ||
