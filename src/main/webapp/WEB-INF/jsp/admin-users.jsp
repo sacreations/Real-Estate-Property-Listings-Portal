@@ -11,9 +11,11 @@
 </head>
 <body class="bg-light">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/properties">Real Estate Portal</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/properties">
+                <i class="bi bi-building me-2"></i>Real Estate Portal
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,6 +23,12 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/properties">Properties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/contact">Contact</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="${pageContext.request.contextPath}/admin/dashboard">Admin Dashboard</a>
@@ -32,12 +40,16 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            ${sessionScope.username}
+                            <i class="bi bi-person-circle me-1"></i> ${sessionScope.username}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">
+                                <i class="bi bi-person me-2"></i>Profile
+                            </a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth?action=logout">Logout</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/auth?action=logout">
+                                <i class="bi bi-box-arrow-right me-2"></i>Logout
+                            </a></li>
                         </ul>
                     </li>
                 </ul>

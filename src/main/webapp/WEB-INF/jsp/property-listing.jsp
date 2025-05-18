@@ -290,8 +290,9 @@
                 </c:when>
                 <c:otherwise>
                     <c:forEach var="property" items="${properties}" varStatus="status">
+                        <c:set var="animationDelay" value="${status.index * 0.1}" scope="page"/>
                         <div class="col-md-6 col-lg-4 mb-4">
-                            <div class="card property-card animate__animated animate__fadeIn" style="animation-delay: ${status.index * 0.1}s">
+                            <div class="card property-card animate__animated animate__fadeIn" style="animation-delay: ${animationDelay}s">
                                 <div class="property-img-container">
                                     <img src="${empty property.imageUrl ? 'https://via.placeholder.com/300x200?text=No+Image' : property.imageUrl}" 
                                          class="property-img" alt="${property.title}">
