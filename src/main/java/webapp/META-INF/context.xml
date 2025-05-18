@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/realestate">
+    <!-- Define any resources needed by the application here -->
+    
+    <!-- Example JNDI resource 
+    <Resource name="jdbc/myDataSource" 
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxTotal="100"
+              maxIdle="30"
+              maxWaitMillis="10000"
+              username="root"
+              password="password"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/mydatabase?serverTimezone=UTC"/>
+    -->
+    
+    <!-- Optional: Set caching parameters -->
+    <Resources cachingAllowed="true" cacheMaxSize="100000" />
+    
+    <!-- Optional: Configure the directory where serialized sessions are saved -->
+    <Manager pathname="" />
+</Context>
