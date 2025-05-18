@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Binary Search Tree implementation for property data structure
+ * Simple Binary Search Tree for storing and retrieving property data
+ * A BST allows efficient searching, insertion and deletion operations
  */
 public class BST {
     
-    // Node class for BST
+    // Simple Node class for our tree
     private static class Node {
         Property property;
         Node left, right;
@@ -22,138 +23,164 @@ public class BST {
     
     private Node root;
     
+    // Constructor - creates an empty tree
     public BST() {
         root = null;
     }
     
     /**
-     * Insert a property into the BST
+     * Add a property to the tree
      */
     public void insert(Property property) {
-        root = insertRec(root, property);
+        root = addPropertyToTree(root, property);
     }
     
-    private Node insertRec(Node root, Property property) {
-        if (root == null) {
-            root = new Node(property);
-            return root;
+    // Helper method to add property in the correct position
+    private Node addPropertyToTree(Node current, Property property) {
+        // If tree is empty or we've reached a leaf node, create new node
+        if (current == null) {
+            return new Node(property);
         }
         
-        if (property.compareTo(root.property) < 0) {
-            root.left = insertRec(root.left, property);
-        } else if (property.compareTo(root.property) > 0) {
-            root.right = insertRec(root.right, property);
+        // Compare prices to decide where to place the property
+        if (property.getPrice() < current.property.getPrice()) {
+            current.left = addPropertyToTree(current.left, property);
+        } else {
+            current.right = addPropertyToTree(current.right, property);
         }
         
-        return root;
+        return current;
     }
     
     /**
-     * Delete a property by ID
+     * Remove a property from the tree by ID
      */
     public void deleteById(String propertyId) {
-        root = deleteByIdRec(root, propertyId);
+        root = removeProperty(root, propertyId);
     }
     
-    private Node deleteByIdRec(Node root, String propertyId) {
-        if (root == null) {
+    // Helper method to find and remove a property
+    private Node removeProperty(Node current, String propertyId) {
+        if (current == null) {
             return null;
         }
         
-        if (root.property.getPropertyId().equals(propertyId)) {
-            // Node with only one child or no child
-            if (root.left == null) {
-                return root.right;
-            } else if (root.right == null) {
-                return root.left;
+        // If this is the property to remove
+        if (current.property.getPropertyId().equals(propertyId)) {
+            // Case 1: No children
+            if (current.left == null && current.right == null) {
+                return null;
             }
             
-            // Node with two children
-            // Get the inorder successor (smallest in the right subtree)
-            root.property = minValue(root.right);
+            // Case 2: One child
+            if (current.left == null) {
+                return current.right;
+            }
+            if (current.right == null) {
+                return current.left;
+            }
             
-            // Delete the inorder successor
-            root.right = deleteByIdRec(root.right, root.property.getPropertyId());
+            // Case 3: Two children
+            // Find the smallest value in right subtree
+            Property smallestValue = findSmallestProperty(current.right);
+            current.property = smallestValue;
+            
+            // Remove the smallest node from right subtree
+            current.right = removeProperty(current.right, smallestValue.getPropertyId());
         } else {
-            // Search in both subtrees
-            root.left = deleteByIdRec(root.left, propertyId);
-            root.right = deleteByIdRec(root.right, propertyId);
+            // Search both subtrees
+            current.left = removeProperty(current.left, propertyId);
+            current.right = removeProperty(current.right, propertyId);
         }
         
-        return root;
+        return current;
     }
     
-    private Property minValue(Node root) {
-        Property minv = root.property;
+    // Find the property with the smallest price in a subtree
+    private Property findSmallestProperty(Node root) {
+        Property smallest = root.property;
         while (root.left != null) {
-            minv = root.left.property;
+            smallest = root.left.property;
             root = root.left;
         }
-        return minv;
+        return smallest;
     }
     
     /**
-     * Find property by ID
+     * Find a property by its ID
      */
     public Property findById(String propertyId) {
-        return findByIdRec(root, propertyId);
+        return searchForProperty(root, propertyId);
     }
     
-    private Property findByIdRec(Node root, String propertyId) {
-        if (root == null) {
+    // Helper method to search for a property
+    private Property searchForProperty(Node current, String propertyId) {
+        if (current == null) {
             return null;
         }
         
-        if (root.property.getPropertyId().equals(propertyId)) {
-            return root.property;
+        if (current.property.getPropertyId().equals(propertyId)) {
+            return current.property;
         }
         
-        Property leftResult = findByIdRec(root.left, propertyId);
+        // Check left subtree first
+        Property leftResult = searchForProperty(current.left, propertyId);
         if (leftResult != null) {
             return leftResult;
         }
         
-        return findByIdRec(root.right, propertyId);
+        // Then check right subtree
+        return searchForProperty(current.right, propertyId);
     }
     
     /**
-     * Get all properties in the BST (inorder traversal)
+     * Get all properties stored in the tree
      */
     public List<Property> getAllProperties() {
         List<Property> properties = new ArrayList<>();
-        inorderTraversal(root, properties);
+        collectPropertiesInOrder(root, properties);
         return properties;
     }
     
-    private void inorderTraversal(Node root, List<Property> properties) {
-        if (root != null) {
-            inorderTraversal(root.left, properties);
-            properties.add(root.property);
-            inorderTraversal(root.right, properties);
+    // Helper method to collect all properties in ascending price order
+    private void collectPropertiesInOrder(Node current, List<Property> properties) {
+        if (current != null) {
+            // First get all cheaper properties
+            collectPropertiesInOrder(current.left, properties);
+            // Then add this property
+            properties.add(current.property);
+            // Finally get all more expensive properties
+            collectPropertiesInOrder(current.right, properties);
         }
     }
     
     /**
-     * Get properties within a price range
+     * Get properties within a certain price range
      */
     public List<Property> getPropertiesInPriceRange(double minPrice, double maxPrice) {
         List<Property> properties = new ArrayList<>();
-        getPropertiesInPriceRangeRec(root, properties, minPrice, maxPrice);
+        findPropertiesInRange(root, properties, minPrice, maxPrice);
         return properties;
     }
     
-    private void getPropertiesInPriceRangeRec(Node root, List<Property> properties, double minPrice, double maxPrice) {
-        if (root != null) {
-            if (root.property.getPrice() >= minPrice && root.property.getPrice() <= maxPrice) {
-                properties.add(root.property);
+    // Helper method to find properties in a price range
+    private void findPropertiesInRange(Node current, List<Property> properties, double minPrice, double maxPrice) {
+        if (current != null) {
+            double currentPrice = current.property.getPrice();
+            
+            // Check if current property is in range
+            if (currentPrice >= minPrice && currentPrice <= maxPrice) {
+                properties.add(current.property);
             }
             
-            if (root.property.getPrice() > minPrice) {
-                getPropertiesInPriceRangeRec(root.left, properties, minPrice, maxPrice);
+            // Search left subtree if it could contain properties in range
+            if (currentPrice > minPrice) {
+                findPropertiesInRange(current.left, properties, minPrice, maxPrice);
             }
             
-            if (root.property.getPrice() < maxPrice) {
-                getPropertiesInPriceRangeRec(root.right, properties, minPrice, maxPrice);
+            // Search right subtree if it could contain properties in range
+            if (currentPrice < maxPrice) {
+                findPropertiesInRange(current.right, properties, minPrice, maxPrice);
             }
         }
     }
