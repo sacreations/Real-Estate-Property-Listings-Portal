@@ -1,4 +1,4 @@
-package com.realestate.servlets;
+package servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
