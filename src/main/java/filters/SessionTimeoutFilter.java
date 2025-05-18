@@ -43,8 +43,8 @@ public class SessionTimeoutFilter implements Filter {
         if (needsLogin(requestURI, contextPath) && 
             (session == null || session.getAttribute("userId") == null)) {
             
-            // Redirect to session timeout page
-            httpResponse.sendRedirect(contextPath + "/WEB-INF/jsp/session-timeout.jsp");
+            // Redirect to session timeout page via the AuthServlet
+            httpResponse.sendRedirect(contextPath + "/auth?action=sessionTimeout");
             return;
         }
         
@@ -65,7 +65,9 @@ public class SessionTimeoutFilter implements Filter {
                uri.startsWith(contextPath + "/auth") ||
                uri.contains("/css/") || 
                uri.contains("/js/") || 
-               uri.contains("/images/");
+               uri.contains("/images/") ||
+               uri.equals(contextPath + "/properties") ||  // Allow viewing property listings
+               uri.startsWith(contextPath + "/properties/view"); // Allow viewing individual properties
     }
     
     // Check if this page requires being logged in
