@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    
+    <display-name>Real Estate Property Listings Portal</display-name>
+    
+    <!-- Context Parameters for File Paths -->
+    <context-param>
+        <param-name>data-directory</param-name>
+        <param-value>d:\SLIIT\OOP\finalproject\data\</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>users-file</param-name>
+        <param-value>users.txt</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>properties-file</param-name>
+        <param-value>properties.txt</param-value>
+    </context-param>
+    
+    <!-- Servlet Definitions -->
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>servlets.AuthServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropertyServlet</servlet-name>
+        <servlet-class>servlets.PropertyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>servlets.AdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>servlets.UserServlet</servlet-class>
+    </servlet>
+    
+    <!-- Servlet Mappings -->
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/auth/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropertyServlet</servlet-name>
+        <url-pattern>/properties/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/user/*</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Welcome File List -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <!-- Session timeout handling -->
+        <tracking-mode>COOKIE</tracking-mode>
+        <cookie-config>
+            <http-only>true</http-only>
+        </cookie-config>
+    </session-config>
+    
+    <!-- Error Pages -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/jsp/error/404.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/jsp/error/500.jsp</location>
+    </error-page>
+    
+    <!-- Adding a catch-all error handler for any other error types -->
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/WEB-INF/jsp/error/500.jsp</location>
+    </error-page>
+    
+    <!-- Session Timeout Handler -->
+    <error-page>
+        <exception-type>javax.servlet.ServletException</exception-type>
+        <location>/WEB-INF/jsp/session-timeout.jsp</location>
+    </error-page>
+    
+    <!-- Add session timeout filter -->
+    <filter>
+        <filter-name>SessionTimeoutFilter</filter-name>
+        <filter-class>filters.SessionTimeoutFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SessionTimeoutFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- Listener for Application Initialization -->
+    <listener>
+        <listener-class>utils.ApplicationListener</listener-class>
+    </listener>
+</web-app>
