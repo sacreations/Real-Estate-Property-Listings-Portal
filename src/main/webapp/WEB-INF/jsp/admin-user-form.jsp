@@ -117,7 +117,7 @@
                             </div>
                             
                             <!-- Regular User Fields -->
-                            <div id="regularUserFields" style="display: ${user.userType eq 'regular' || empty user.userType ? 'block' : 'none'};">
+                            <div id="regularUserFields" style="display: ${user.userType eq 'regular' || empty user.userType ? 'block' : 'none'}">
                                 <div class="mb-3">
                                     <label for="address" class="form-label">Address</label>
                                     <input type="text" class="form-control" id="address" name="address" 
@@ -132,7 +132,7 @@
                             </div>
                             
                             <!-- Admin User Fields -->
-                            <div id="adminUserFields" style="display: ${user.userType eq 'admin' ? 'block' : 'none'};">
+                            <div id="adminUserFields" style="display: ${user.userType eq 'admin' ? 'block' : 'none'}">
                                 <div class="mb-3">
                                     <label for="adminLevel" class="form-label">Admin Level</label>
                                     <select class="form-select" id="adminLevel" name="adminLevel">
