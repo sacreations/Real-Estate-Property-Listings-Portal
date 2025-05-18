@@ -6,10 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * This filter checks if the user's session has expired
- * It redirects to the timeout page for protected pages that need a login
- */
+// This filter checks if the user's session has expired
+// It redirects to the timeout page for protected pages that need a login
 public class SessionTimeoutFilter implements Filter {
 
     // Initialize filter

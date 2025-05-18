@@ -2,10 +2,8 @@ package utils;
 
 import models.Property;
 
-/**
- * Node class for the Binary Search Tree
- * Each node contains a property and references to left and right children
- */
+// Node class for the Binary Search Tree
+// Each node contains a property and references to left and right children
 public class BSTNode {
     private Property property;
     private BSTNode left;

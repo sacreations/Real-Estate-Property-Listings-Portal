@@ -1,8 +1,6 @@
 package models;
 
-/**
- * Abstract base class for all user types
- */
+// Abstract base class for all user types
 public abstract class User {
     private String userId;
     private String username;

@@ -1,8 +1,6 @@
 package models;
 
-/**
- * Class for admin users
- */
+// Class for admin users
 public class AdminUser extends User {
     private String adminLevel;
     private String department;

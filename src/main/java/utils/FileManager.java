@@ -13,19 +13,15 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 
-/**
- * This class handles all file operations for storing and retrieving data
- * It works with user and property files to save and load data
- */
+// This class handles all file operations for storing and retrieving data
+// It works with user and property files to save and load data
 public class FileManager {
     private static String DATA_DIRECTORY;    // Directory where data files are stored
     private static String USERS_FILE;        // Path to users data file
     private static String PROPERTIES_FILE;   // Path to properties data file
     private static final Logger LOGGER = Logger.getLogger(FileManager.class.getName());
     
-    /**
-     * Set up file paths based on application settings
-     */
+    // Set up file paths based on application settings
     public static void initialize(ServletContext context) {
         // Get paths from web.xml configuration
         DATA_DIRECTORY = context.getInitParameter("data-directory");
@@ -50,9 +46,7 @@ public class FileManager {
         verifyFilesExist();
     }
     
-    /**
-     * Verify that data files exist and are accessible
-     */
+    // Verify that data files exist and are accessible
     private static void verifyFilesExist() {
         File usersFile = new File(USERS_FILE);
         File propertiesFile = new File(PROPERTIES_FILE);
@@ -86,9 +80,7 @@ public class FileManager {
     
     // USER OPERATIONS
     
-    /**
-     * Get a list of all users from the users file
-     */
+    // Get a list of all users from the users file
     public static List<User> readAllUsers() throws IOException {
         List<User> users = new ArrayList<>();
         File file = new File(USERS_FILE);
@@ -137,9 +129,7 @@ public class FileManager {
         return users;
     }
     
-    /**
-     * Find a user by their username
-     */
+    // Find a user by their username
     public static User findUserByUsername(String username) throws IOException {
         // Get all users and search for matching username
         List<User> users = readAllUsers();
@@ -153,9 +143,7 @@ public class FileManager {
         return null;  // User not found
     }
     
-    /**
-     * Find a user by their ID
-     */
+    // Find a user by their ID
     public static User findUserById(String userId) throws IOException {
         // Get all users and search for matching ID
         List<User> users = readAllUsers();
@@ -169,9 +157,7 @@ public class FileManager {
         return null;  // User not found
     }
     
-    /**
-     * Add a new user to the users file
-     */
+    // Add a new user to the users file
     public static void addUser(User user) throws IOException {
         File file = new File(USERS_FILE);
         
@@ -193,9 +179,7 @@ public class FileManager {
         }
     }
     
-    /**
-     * Update an existing user in the file
-     */
+    // Update an existing user in the file
     public static void updateUser(User updatedUser) throws IOException {
         // Read all users
         List<User> users = readAllUsers();
@@ -214,9 +198,7 @@ public class FileManager {
         }
     }
     
-    /**
-     * Delete a user from the file
-     */
+    // Delete a user from the file
     public static void deleteUser(String userId) throws IOException {
         // Read all users
         List<User> users = readAllUsers();
@@ -234,9 +216,7 @@ public class FileManager {
     
     // PROPERTY OPERATIONS
     
-    /**
-     * Get a list of all properties from the properties file
-     */
+    // Get a list of all properties from the properties file
     public static List<Property> readAllProperties() throws IOException {
         List<Property> properties = new ArrayList<>();
         File file = new File(PROPERTIES_FILE);
@@ -271,9 +251,7 @@ public class FileManager {
         return properties;
     }
     
-    /**
-     * Find a property by its ID
-     */
+    // Find a property by its ID
     public static Property findPropertyById(String propertyId) throws IOException {
         // Get all properties and search for matching ID
         List<Property> properties = readAllProperties();
@@ -287,9 +265,7 @@ public class FileManager {
         return null;  // Property not found
     }
     
-    /**
-     * Add a new property to the properties file
-     */
+    // Add a new property to the properties file
     public static void addProperty(Property property) throws IOException {
         File file = new File(PROPERTIES_FILE);
         
@@ -311,9 +287,7 @@ public class FileManager {
         }
     }
     
-    /**
-     * Update an existing property in the file
-     */
+    // Update an existing property in the file
     public static void updateProperty(Property updatedProperty) throws IOException {
         // Read all properties
         List<Property> properties = readAllProperties();
@@ -332,9 +306,7 @@ public class FileManager {
         }
     }
     
-    /**
-     * Delete a property from the file
-     */
+    // Delete a property from the file
     public static void deleteProperty(String propertyId) throws IOException {
         // Read all properties
         List<Property> properties = readAllProperties();

@@ -4,13 +4,10 @@ import models.Property;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Simple Binary Search Tree for storing and retrieving property data
- * A BST allows efficient searching, insertion and deletion operations
- */
+// Simple Binary Search Tree for storing and retrieving property data
 public class BST {
     
-    // Simple Node class for our tree
+    // Node class for tree
     private static class Node {
         Property property;
         Node left, right;
@@ -28,9 +25,7 @@ public class BST {
         root = null;
     }
     
-    /**
-     * Add a property to the tree
-     */
+    // Add a property to the tree
     public void insert(Property property) {
         root = addPropertyToTree(root, property);
     }
@@ -52,9 +47,7 @@ public class BST {
         return current;
     }
     
-    /**
-     * Remove a property from the tree by ID
-     */
+    // Remove a property from the tree by ID
     public void deleteById(String propertyId) {
         root = removeProperty(root, propertyId);
     }
@@ -106,9 +99,7 @@ public class BST {
         return smallest;
     }
     
-    /**
-     * Find a property by its ID
-     */
+    // Find a property by its ID
     public Property findById(String propertyId) {
         return searchForProperty(root, propertyId);
     }
@@ -133,9 +124,7 @@ public class BST {
         return searchForProperty(current.right, propertyId);
     }
     
-    /**
-     * Get all properties stored in the tree
-     */
+    // Get all properties stored in the tree
     public List<Property> getAllProperties() {
         List<Property> properties = new ArrayList<>();
         collectPropertiesInOrder(root, properties);
@@ -154,9 +143,7 @@ public class BST {
         }
     }
     
-    /**
-     * Get properties within a certain price range
-     */
+    // Get properties within a certain price range
     public List<Property> getPropertiesInPriceRange(double minPrice, double maxPrice) {
         List<Property> properties = new ArrayList<>();
         findPropertiesInRange(root, properties, minPrice, maxPrice);

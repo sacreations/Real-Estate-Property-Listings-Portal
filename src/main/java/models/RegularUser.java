@@ -1,8 +1,6 @@
 package models;
 
-/**
- * Class for regular users
- */
+// Class for regular users
 public class RegularUser extends User {
     private String address;
     private String preferences;

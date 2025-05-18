@@ -12,11 +12,9 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * This class runs when the application starts and stops
- * It sets up initial files and directories needed for the application
- * and validates critical application resources
- */
+// This class runs when the application starts and stops
+// It sets up initial files and directories needed for the application
+// and validates critical application resources
 public class ApplicationListener implements ServletContextListener {
     
     private static final Logger LOGGER = Logger.getLogger(ApplicationListener.class.getName());

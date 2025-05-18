@@ -3,36 +3,26 @@ package utils;
 import models.Property;
 import java.util.List;
 
-/**
- * Simple QuickSort implementation for sorting property lists
- * QuickSort is an efficient sorting algorithm that uses divide-and-conquer
- */
+// Simple QuickSort implementation for sorting property lists
+// QuickSort is an efficient sorting algorithm that uses divide-and-conquer
 public class QuickSort {
     
-    /**
-     * Sort properties by price (lowest to highest)
-     */
+    // Sort properties by price (lowest to highest)
     public static void sortByPriceAsc(List<Property> properties) {
         sortByPrice(properties, 0, properties.size() - 1, true);
     }
     
-    /**
-     * Sort properties by price (highest to lowest)
-     */
+    // Sort properties by price (highest to lowest)
     public static void sortByPriceDesc(List<Property> properties) {
         sortByPrice(properties, 0, properties.size() - 1, false);
     }
     
-    /**
-     * Sort properties by number of bedrooms
-     */
+    // Sort properties by number of bedrooms
     public static void sortByBedrooms(List<Property> properties, boolean ascending) {
         sortByBedrooms(properties, 0, properties.size() - 1, ascending);
     }
     
-    /**
-     * Sort properties by area size
-     */
+    // Sort properties by area size
     public static void sortByArea(List<Property> properties, boolean ascending) {
         sortByArea(properties, 0, properties.size() - 1, ascending);
     }

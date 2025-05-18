@@ -396,7 +396,7 @@ public class PropertyServlet extends HttpServlet {
     // Handle searching for properties
     private void handleSearchProperties(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Redirect back to the listing page with search parameters
-        // This will be handled by the list method
+        // This is handled by the list method
         
         String minPrice = request.getParameter("minPrice");
         String maxPrice = request.getParameter("maxPrice");

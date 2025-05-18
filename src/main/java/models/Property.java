@@ -2,10 +2,8 @@ package models;
 
 import java.io.Serializable;
 
-/**
- * This class represents a real estate property with all its details
- * It stores information about location, price, size, etc.
- */
+// This class represents a real estate property with all its details
+// It stores information about location, price, size, etc.
 public class Property implements Serializable, Comparable<Property> {
     private String propertyId;      // Unique identifier for the property
     private String title;           // Property title/name
@@ -136,18 +134,14 @@ public class Property implements Serializable, Comparable<Property> {
         this.imageUrl = imageUrl;
     }
     
-    /**
-     * Convert property to a string format for file storage
-     */
+    // Convert property to a string format for file storage
     public String toFileString() {
         return propertyId + "," + title + "," + description + "," + price + "," + 
                location + "," + bedrooms + "," + bathrooms + "," + area + "," +
                propertyType + "," + ownerId + "," + status + "," + imageUrl;
     }
     
-    /**
-     * Create a Property object from a string read from file
-     */
+    // Create a Property object from a string read from file
     public static Property fromFileString(String fileString) {
         String[] parts = fileString.split(",", 12); // Max 12 parts
         if (parts.length >= 11) {
@@ -180,9 +174,7 @@ public class Property implements Serializable, Comparable<Property> {
         return null;
     }
     
-    /**
-     * Compare properties by price (used for sorting)
-     */
+    // Compare properties by price (used for sorting)
     @Override
     public int compareTo(Property other) {
         return Double.compare(this.price, other.price);
