@@ -8,120 +8,110 @@
     <title>Login - Real Estate Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/real-estate-theme.css">
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #27ae60;
-            --accent-color: #e67e22;
-            --light-color: #f8f9fa;
-            --dark-color: #2c3e50;
-        }
-        
         body {
-            background-color: var(--light-color);
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1973&q=80');
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1973&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
         }
         
-        .card {
-            border: none;
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
         }
         
-        .card-header {
-            background-color: var(--secondary-color);
-            padding: 25px 15px;
-            border-bottom: none;
-        }
-        
-        .card-header h3, .card-header h4 {
-            font-weight: 700;
-        }
-        
-        .card-body {
+        .login-header {
+            background: var(--gradient-primary);
             padding: 30px;
+            text-align: center;
         }
         
-        .btn-primary {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-            padding: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+        .login-header h3 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
         
-        .btn-primary:hover {
-            background-color: #219653;
-            border-color: #219653;
-            transform: translateY(-2px);
+        .login-header h4 {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 1.2rem;
+        }
+        
+        .login-body {
+            padding: 35px;
+        }
+        
+        .input-group-text {
+            background-color: transparent;
+            border-right: none;
         }
         
         .form-control {
-            border-radius: 8px;
-            padding: 12px 15px;
-            font-size: 16px;
-            border: 1px solid #ddd;
+            border-left: none;
+            padding-left: 0;
         }
         
         .form-control:focus {
-            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.3);
-            border-color: var(--secondary-color);
+            box-shadow: none;
         }
         
-        .form-label {
-            font-weight: 500;
-            margin-bottom: 8px;
+        .input-group:focus-within {
+            box-shadow: 0 0 0 .25rem rgba(56, 178, 172, 0.25);
+            border-radius: 0.375rem;
         }
         
-        .card-footer {
+        .login-footer {
             background-color: #f8f9fa;
-            border-top: none;
-            padding: 20px 30px;
+            padding: 20px 35px;
+            text-align: center;
         }
         
-        .card-footer p {
-            margin-bottom: 0;
-        }
-        
-        .card-footer a {
-            color: var(--secondary-color);
+        .login-btn {
+            background: var(--gradient-primary);
+            border: none;
+            padding: 12px;
             font-weight: 600;
-            text-decoration: none;
         }
         
-        .card-footer a:hover {
-            text-decoration: underline;
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 178, 172, 0.4);
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-8">
-                <div class="card shadow">
-                    <div class="card-header bg-primary text-white text-center">
+            <div class="col-12">
+                <div class="login-card animate__animated animate__fadeIn">
+                    <div class="login-header">
                         <h3>Real Estate Portal</h3>
-                        <h4>Sign In</h4>
+                        <h4>Welcome Back</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="login-body">
                         <c:if test="${not empty errorMessage}">
-                            <div class="alert alert-danger" role="alert">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <i class="fas fa-exclamation-circle me-2"></i> ${errorMessage}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </c:if>
                         <c:if test="${not empty successMessage}">
-                            <div class="alert alert-success" role="alert">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <i class="fas fa-check-circle me-2"></i> ${successMessage}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </c:if>
                         
@@ -131,16 +121,16 @@
                             <div class="mb-4">
                                 <label for="username" class="form-label">Username</label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-white"><i class="fas fa-user text-secondary"></i></span>
-                                    <input type="text" class="form-control border-start-0" id="username" name="username" required placeholder="Enter your username">
+                                    <span class="input-group-text"><i class="fas fa-user text-muted"></i></span>
+                                    <input type="text" class="form-control" id="username" name="username" required placeholder="Enter your username">
                                 </div>
                             </div>
                             
                             <div class="mb-4">
                                 <label for="password" class="form-label">Password</label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-white"><i class="fas fa-lock text-secondary"></i></span>
-                                    <input type="password" class="form-control border-start-0" id="password" name="password" required placeholder="Enter your password">
+                                    <span class="input-group-text"><i class="fas fa-lock text-muted"></i></span>
+                                    <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
                                 </div>
                             </div>
                             
@@ -149,19 +139,19 @@
                                     <input type="checkbox" class="form-check-input" id="rememberMe">
                                     <label class="form-check-label" for="rememberMe">Remember me</label>
                                 </div>
-                                <a href="#" class="text-secondary small">Forgot password?</a>
+                                <a href="#" class="text-secondary small text-decoration-none">Forgot password?</a>
                             </div>
                             
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="d-grid">
+                                <button type="submit" class="btn login-btn">
                                     <i class="fas fa-sign-in-alt me-2"></i> Login
                                 </button>
                             </div>
                         </form>
                     </div>
-                    <div class="card-footer text-center">
-                        <p>Don't have an account? <a href="${pageContext.request.contextPath}/auth?action=registerPage">Register Now</a></p>
-                        <p class="mt-3 small"><a href="${pageContext.request.contextPath}/"><i class="fas fa-home me-2"></i>Back to Home</a></p>
+                    <div class="login-footer">
+                        <p class="mb-0">Don't have an account? <a href="${pageContext.request.contextPath}/auth?action=registerPage" class="text-decoration-none fw-medium">Register Now</a></p>
+                        <p class="mt-3 small mb-0"><a href="${pageContext.request.contextPath}/" class="text-decoration-none"><i class="fas fa-home me-2"></i>Back to Home</a></p>
                     </div>
                 </div>
             </div>
