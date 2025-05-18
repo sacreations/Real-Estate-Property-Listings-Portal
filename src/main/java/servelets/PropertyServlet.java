@@ -132,11 +132,14 @@ public class PropertyServlet extends HttpServlet {
         
         List<Property> filteredProperties = new ArrayList<>(properties);
         
-        // Filter by price range if provided
-        if (minPriceStr != null && !minPriceStr.isEmpty() && maxPriceStr != null && !maxPriceStr.isEmpty()) {
+        // Filter by price range - either minPrice or maxPrice or both can be provided
+        if (minPriceStr != null && !minPriceStr.isEmpty() || maxPriceStr != null && !maxPriceStr.isEmpty()) {
             try {
-                double minPrice = Double.parseDouble(minPriceStr);
-                double maxPrice = Double.parseDouble(maxPriceStr);
+                double minPrice = (minPriceStr != null && !minPriceStr.isEmpty()) ? 
+                    Double.parseDouble(minPriceStr) : Double.MIN_VALUE;
+                    
+                double maxPrice = (maxPriceStr != null && !maxPriceStr.isEmpty()) ? 
+                    Double.parseDouble(maxPriceStr) : Double.MAX_VALUE;
                 
                 List<Property> priceFilteredProperties = new ArrayList<>();
                 for (Property property : filteredProperties) {
@@ -146,7 +149,8 @@ public class PropertyServlet extends HttpServlet {
                 }
                 filteredProperties = priceFilteredProperties;
             } catch (NumberFormatException e) {
-                // Ignore invalid price inputs
+                // Log the error but continue with unfiltered properties
+                getServletContext().log("Error parsing price values", e);
             }
         }
         
