@@ -1,0 +1,4 @@
+123e4567-e89b-12d3-a456-426614174000,admin,admin123,admin@realestate.com,1234567890,admin,super,Management
+654e3210-e21b-12d3-a456-426614174000,emma,emma123,emma@realestate.com,5678901234,admin,property,Sales
+04e22a15-3bdf-45b4-9191-c3b812b2e678,test1,test123,test@test.com,0774154514,regular,colombo,
+bcf30220-480c-45af-b942-daaa07ea4b29,test123,123456,test123@gmail.com,0774545456,regular,sadadsas,

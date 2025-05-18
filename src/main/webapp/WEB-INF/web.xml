@@ -11,7 +11,7 @@
     <!-- File locations for data storage -->
     <context-param>
         <param-name>data-directory</param-name>
-        <param-value>d:\SLIIT\OOP\finalproject\data\</param-value>
+        <param-value>d:/finalproject/Real-Estate-Property-Listings-Portal/data/</param-value>
     </context-param>
     
     <context-param>
