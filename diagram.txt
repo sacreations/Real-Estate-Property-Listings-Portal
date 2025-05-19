@@ -1,0 +1,150 @@
+==================================================================================================
+|                             REAL ESTATE PROPERTY LISTINGS PORTAL                               |
+|                                       CLASS DIAGRAM                                            |
+==================================================================================================
+
+// MODEL CLASSES
++---------------------+         +----------------------+         +-----------------------+
+|      User (A)       |<--------|    RegularUser       |         |      AdminUser        |
++---------------------+         +----------------------+         +-----------------------+
+| -userId: String     |         | -address: String     |         | -adminLevel: String   |
+| -username: String   |         | -preferences: String |         | -department: String   |
+| -password: String   |         +----------------------+         +-----------------------+
+| -email: String      |         | +getAddress()        |         | +getAdminLevel()      |
+| -phoneNumber: String|         | +setAddress()        |         | +setAdminLevel()      |
++---------------------+         | +getPreferences()    |         | +getDepartment()      |
+| +getUserId()        |         | +setPreferences()    |         | +setDepartment()      |
+| +getUsername()      |         | +getUserType()       |         | +getUserType()        |
+| +setUsername()      |         | +toFileString()      |         | +toFileString()       |
+| +getPassword()      |         | +fromFileString()    |         | +fromFileString()     |
+| +setPassword()      |         +----------------------+         +-----------------------+
+| +getEmail()         |                                                     ^
+| +setEmail()         |                                                     |
+| +getPhoneNumber()   |                                                     |
+| +setPhoneNumber()   |                                                     |
+| +getUserType()  (A) |                                                     |
+| +toFileString() (A) |                                                     |
++---------------------+                                                     |
+         ^                                                                  |
+         |                                                                  |
+         +------------------------------------------------------------------+
+
++----------------------+
+|      Property        |
++----------------------+
+| -propertyId: String  |
+| -title: String       |
+| -description: String |
+| -price: double       |
+| -location: String    |
+| -bedrooms: int       |
+| -bathrooms: int      |
+| -area: double        |
+| -propertyType: String|
+| -ownerId: String     |
+| -status: String      |
+| -imageUrl: String    |
++----------------------+
+| +getters/setters     |
+| +toFileString()      |
+| +fromFileString()    |
+| +compareTo()         |
++----------------------+
+
+// UTILITY CLASSES
++---------------------+         +---------------------+         +----------------------+
+|      BST            |         |     BSTNode         |         |    QuickSort         |
++---------------------+         +---------------------+         +----------------------+
+| -root: Node         |         | -property: Property |         | +sortByPriceAsc()    |
++---------------------+         | -left: BSTNode      |         | +sortByPriceDesc()   |
+| +insert()           |         | -right: BSTNode     |         | +sortByBedrooms()    |
+| +deleteById()       |         +---------------------+         | +sortByArea()        |
+| +findById()         |         | +getProperty()      |         | -sortByPrice()       |
+| +getAllProperties() |         | +setProperty()      |         | -partitionByPrice()  |
+| +getPropertiesIn    |         | +getLeft()          |         | -sortByBedrooms()    |
+|  PriceRange()       |         | +setLeft()          |         | -partitionByBedrooms()|
++---------------------+         | +getRight()         |         | -sortByArea()        |
+                                | +setRight()         |         | -partitionByArea()   |
+                                | +isLeaf()           |         | -swapProperties()    |
+                                | +hasFullChildren()  |         +----------------------+
+                                +---------------------+
+
++---------------------+
+|    FileManager      |
++---------------------+
+| -DATA_DIRECTORY     |
+| -USERS_FILE         |
+| -PROPERTIES_FILE    |
+| -LOGGER             |
++---------------------+
+| +initialize()       |
+| +readAllUsers()     |
+| +findUserByUsername()|
+| +findUserById()     |
+| +addUser()          |
+| +updateUser()       |
+| +deleteUser()       |
+| +readAllProperties()|
+| +findPropertyById() |
+| +addProperty()      |
+| +updateProperty()   |
+| +deleteProperty()   |
++---------------------+
+
+// SERVLET CLASSES
++-------------------+        +---------------------+        +---------------------+
+|   AuthServlet     |        |   PropertyServlet   |        |    UserServlet     |
++-------------------+        +---------------------+        +---------------------+
+| +doGet()          |        | -propertyBST: BST   |        | +doGet()           |
+| +doPost()         |        +---------------------+        | +doPost()          |
+| -handleLogin()    |        | +init()             |        | -updateUserProfile()|
+| -handleRegistration()|     | +doGet()            |        | -changePassword()  |
++-------------------+        | +doPost()           |        +---------------------+
+                             | -handleListProperties()|
+                             | -handleViewProperty()  |
+                             | -handleEditProperty()  |
+                             | -handleAddProperty()   |
+                             | -handleUpdateProperty()|
+                             | -handleDeleteProperty()|
+                             | -handleSearchProperties()|
+                             +---------------------+
+
++---------------------+        +---------------------+        +---------------------+
+|   AdminServlet      |        |    PageServlet      |        | SessionTimeoutFilter|
++---------------------+        +---------------------+        +---------------------+
+| +doGet()            |        | +doGet()            |        | +init()             |
+| +doPost()           |        +---------------------+        | +doFilter()         |
+| -showDashboard()    |                                      | +destroy()           |
+| -showUserManagement()|                                     | -isPublicPage()      |
+| -showEditUserForm() |                                      | -needsLogin()        |
+| -addUser()          |                                      +---------------------+
+| -updateUser()       |
+| -deleteUser()       |
++---------------------+
+
++---------------------+
+| ApplicationListener |
++---------------------+
+| -LOGGER             |
++---------------------+
+| +contextInitialized()|
+| +contextDestroyed() |
+| -validateWebApp     |
+|  Resources()        |
+| -validateResource() |
+| -validateDirectory()|
++---------------------+
+
+// RELATIONSHIP LEGEND
+// ------> : Association
+// ◇------> : Aggregation
+// ◆------> : Composition
+// - - - -> : Dependency
+// ────────▷ : Inheritance
+// - - - -▷ : Implementation
+
+// NOTES:
+// (A) = Abstract class/method
+// (+) = Public
+// (-) = Private
+// (#) = Protected
